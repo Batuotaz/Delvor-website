@@ -12,3 +12,52 @@ html {
 ::selection {
   background: rgba(201, 168, 76, 0.2);
 }
+
+/* Legal page prose */
+.legal-prose section {
+  margin-bottom: 2.5rem;
+}
+.legal-prose h2 {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #888;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 0.75rem;
+}
+.legal-prose p {
+  font-size: 0.875rem;
+  color: #555;
+  line-height: 1.8;
+  margin-bottom: 0.75rem;
+}
+.legal-prose ul {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 0.75rem;
+}
+.legal-prose ul li {
+  font-size: 0.875rem;
+  color: #555;
+  line-height: 1.8;
+  padding-left: 1.25rem;
+  position: relative;
+}
+.legal-prose ul li::before {
+  content: "–";
+  position: absolute;
+  left: 0;
+  color: #333;
+}
+.legal-prose a {
+  color: #C9A84C;
+  text-decoration: none;
+  transition: color 0.15s;
+}
+.legal-prose a:hover {
+  color: #d4af5a;
+}
+.legal-prose strong {
+  color: #888;
+  font-weight: 500;
+}

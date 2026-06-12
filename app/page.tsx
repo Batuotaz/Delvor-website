@@ -116,7 +116,7 @@ function ProductListingPanel() {
   ];
 
   return (
-    <div className="flex flex-col border-l border-[#141414] bg-[#080808]">
+    <div className="flex flex-col border-t border-[#141414] md:border-t-0 md:border-l bg-[#080808]">
       {/* Panel header */}
       <div className="px-4 py-2.5 border-b border-[#111]">
         <div className="flex items-center justify-between mb-0.5">
@@ -145,7 +145,7 @@ function ProductListingPanel() {
           >
             <div className="flex gap-3">
               {/* Product image */}
-              <div className="w-14 h-14 rounded-xl bg-[#111] border border-[#1e1e1e] overflow-hidden flex-shrink-0 flex items-center justify-center p-1">
+              <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-[#111] border border-[#1e1e1e] overflow-hidden flex-shrink-0 flex items-center justify-center p-1">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src={p.img}
@@ -160,13 +160,13 @@ function ProductListingPanel() {
                   <p className="text-[12px] font-bold text-white leading-tight">{p.brand}</p>
                   <p className="text-[10px] text-[#666] leading-tight">{p.name}</p>
                 </div>
-                <div className="flex items-center justify-between mt-2">
-                  <span className={`text-[9px] border rounded-full px-2 py-0.5 ${p.tierColor}`}>
+                <div className="flex items-center justify-between mt-2 gap-2">
+                  <span className={`text-[9px] border rounded-full px-2 py-0.5 flex-shrink-0 ${p.tierColor}`}>
                     {p.tier}
                   </span>
-                  <div className="flex items-center gap-2 flex-shrink-0">
+                  <div className="flex items-center gap-2 flex-shrink-0 ml-auto">
                     <span className="text-[13px] text-white font-bold tabular-nums">€{p.price}</span>
-                    <span className="text-[9px] text-[#060606] bg-gold font-semibold px-2.5 py-1 rounded-lg cursor-default select-none leading-none whitespace-nowrap">
+                    <span className="text-[9px] text-[#060606] bg-gold font-semibold px-2 py-1 rounded-lg cursor-default select-none leading-none whitespace-nowrap">
                       Add to cart
                     </span>
                   </div>
@@ -192,7 +192,7 @@ function ProductListingPanel() {
 
 function HeroVisual() {
   return (
-    <div className="relative w-full mx-auto lg:mx-0">
+    <div className="relative w-full">
       {/* Ambient glow */}
       <div
         className="absolute inset-0 rounded-3xl blur-3xl opacity-10 pointer-events-none"
@@ -200,10 +200,10 @@ function HeroVisual() {
       />
 
       {/* Two-panel container */}
-      <div className="relative bg-[#090909] border border-[#191919] rounded-2xl overflow-hidden shadow-2xl flex">
+      <div className="relative bg-[#090909] border border-[#191919] rounded-2xl overflow-hidden shadow-2xl flex flex-col md:flex-row">
 
         {/* LEFT: Chat panel */}
-        <div className="flex flex-col w-[44%] flex-shrink-0">
+        <div className="flex flex-col w-full md:w-[44%] md:flex-shrink-0">
           {/* Chat title bar */}
           <div className="flex items-center justify-between px-3.5 py-2.5 border-b border-[#131313] flex-shrink-0">
             <div className="flex items-center gap-1.5">
@@ -340,28 +340,28 @@ function Hero() {
         }}
       />
 
-      <div className="relative max-w-[1280px] mx-auto px-8 pt-28 pb-20 w-full">
-        <div className="flex flex-col lg:flex-row items-center gap-10 lg:gap-14">
+      <div className="relative max-w-[1280px] mx-auto px-4 sm:px-8 pt-24 sm:pt-28 pb-16 sm:pb-20 w-full">
+        <div className="flex flex-col lg:flex-row items-center gap-8 lg:gap-14">
           {/* Left — text */}
-          <div className="lg:w-[380px] flex-shrink-0">
-            <div className="inline-flex items-center gap-2 border border-[#222] rounded-full px-4 py-1.5 mb-8">
+          <div className="w-full lg:w-[380px] lg:flex-shrink-0">
+            <div className="inline-flex items-center gap-2 border border-[#222] rounded-full px-4 py-1.5 mb-6 sm:mb-8">
               <span className="w-1.5 h-1.5 rounded-full bg-gold" />
               <span className="text-[11px] text-[#666] uppercase tracking-[0.12em]">Platform in Development</span>
             </div>
 
-            <h1 className="text-4xl sm:text-5xl lg:text-[3.25rem] font-bold text-white leading-[1.1] tracking-tight mb-6">
+            <h1 className="text-3xl sm:text-4xl lg:text-[3.25rem] font-bold text-white leading-[1.1] tracking-tight mb-5 sm:mb-6">
               A chat-first auto parts platform for the{" "}
               <span className="text-gold">Baltic market.</span>
             </h1>
 
-            <p className="text-[15px] text-[#555] leading-relaxed mb-10 max-w-[380px]">
+            <p className="text-[14px] sm:text-[15px] text-[#555] leading-relaxed mb-8 sm:mb-10 max-w-[480px] lg:max-w-[380px]">
               Delvor is developing a chat-first auto parts search and ordering platform designed to connect vehicle data, supplier catalogues, pricing and stock availability into one streamlined workflow.
             </p>
 
-            <div className="flex flex-wrap items-center gap-4">
+            <div className="flex flex-wrap items-center gap-3 sm:gap-4">
               <a
                 href="#contact"
-                className="inline-flex items-center gap-2.5 bg-gold text-[#060606] font-semibold text-[14px] px-7 py-3.5 rounded-lg hover:bg-[#d4af5a] transition-colors"
+                className="inline-flex items-center gap-2.5 bg-gold text-[#060606] font-semibold text-[14px] px-6 sm:px-7 py-3 sm:py-3.5 rounded-lg hover:bg-[#d4af5a] transition-colors"
               >
                 Request Partnership
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -911,6 +911,76 @@ function Contact() {
 }
 
 // ---------------------------------------------------------------------------
+// Legal
+// ---------------------------------------------------------------------------
+
+function Legal() {
+  return (
+    <section className="bg-[#060606] border-t border-[#111] py-16">
+      <div className="max-w-[1280px] mx-auto px-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-start">
+
+          {/* Left: description + links */}
+          <div>
+            <p className="text-[11px] text-gold uppercase tracking-[0.2em] mb-4">Legal</p>
+            <p className="text-[#444] text-sm leading-relaxed mb-6 max-w-[420px]">
+              For transparency and business communication, Delvor provides its website privacy policy, terms, and company information.
+            </p>
+            <div className="flex flex-col gap-2.5">
+              {[
+                { label: "Privacy Policy", href: "/privacy-policy" },
+                { label: "Website Terms", href: "/terms" },
+                { label: "Support", href: "/support" },
+              ].map((link) => (
+                <a
+                  key={link.href}
+                  href={link.href}
+                  className="inline-flex items-center gap-2 text-[13px] text-[#555] hover:text-gold transition-colors group w-fit"
+                >
+                  <svg className="w-3 h-3 opacity-40 group-hover:opacity-100 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                  </svg>
+                  {link.label}
+                </a>
+              ))}
+            </div>
+          </div>
+
+          {/* Right: business details + contact */}
+          <div className="flex flex-col gap-5">
+            <div className="border border-[#161616] rounded-lg p-5 bg-[#080808]">
+              <p className="text-[11px] text-[#333] uppercase tracking-widest mb-3">Business Details</p>
+              <p className="text-[13px] text-[#555] leading-relaxed">
+                MB Galios Taškas
+              </p>
+              <p className="text-[12px] text-[#333] mt-1">Company code: 307152056</p>
+              <p className="text-[12px] text-[#333]">Lithuania</p>
+            </div>
+
+            <div className="border border-[#161616] rounded-lg p-5 bg-[#080808]">
+              <p className="text-[11px] text-[#333] uppercase tracking-widest mb-3">Partnership Inquiries</p>
+              <p className="text-[12px] text-[#444] leading-relaxed mb-3">
+                For partnership inquiries, NDAs, invoice requests, or supplier onboarding, contact:
+              </p>
+              <a
+                href="mailto:partnerships@delvor.lt"
+                className="inline-flex items-center gap-2 text-[13px] text-gold hover:text-[#d4af5a] transition-colors font-medium"
+              >
+                <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                </svg>
+                partnerships@delvor.lt
+              </a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ---------------------------------------------------------------------------
 // Footer
 // ---------------------------------------------------------------------------
 
@@ -960,6 +1030,7 @@ export default function Page() {
         <Vision />
         <AboutDelvor />
         <Contact />
+        <Legal />
       </main>
       <Footer />
     </>
