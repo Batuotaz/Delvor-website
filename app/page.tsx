@@ -894,7 +894,7 @@ function Contact() {
           </p>
 
           <a
-            href="mailto:hello@delvor.com"
+            href="mailto:info@delvor.lt"
             className="inline-flex items-center gap-2.5 bg-gold text-[#060606] font-semibold text-[14px] px-8 py-4 rounded-lg hover:bg-[#d4af5a] transition-colors"
           >
             Get in Touch
@@ -903,7 +903,7 @@ function Contact() {
             </svg>
           </a>
 
-          <p className="mt-6 text-[#2a2a2a] text-sm">hello@delvor.com</p>
+          <p className="mt-6 text-[#2a2a2a] text-sm">info@delvor.lt</p>
         </div>
       </div>
     </section>
