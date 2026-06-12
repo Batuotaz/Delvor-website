@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <!-- Dark background -->
+  <rect width="32" height="32" rx="6" fill="#0C0C0C"/>
+
+  <!-- Outer D shape -->
+  <path d="M8,7.5 L8,24.5 C17.5,24.5 24.5,21 24.5,16 C24.5,11 17.5,7.5 8,7.5 Z" fill="#DEDEDE"/>
+
+  <!-- Inner cutout — hollow D -->
+  <path d="M12,11 L12,21 C16.5,21 20.5,19 20.5,16 C20.5,13 16.5,11 12,11 Z" fill="#0C0C0C"/>
+
+  <!-- Gold accent at the D peak -->
+  <circle cx="24.5" cy="16" r="2.2" fill="#C9A84C"/>
+</svg>
