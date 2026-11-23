@@ -39,10 +39,10 @@ export async function POST(request: Request) {
 
   const webhookUrl = process.env.N8N_CONTACT_WEBHOOK_URL ?? process.env.N8N_WEBHOOK_URL;
   const webhookSecret = process.env.N8N_WEBHOOK_SECRET;
-  if (!webhookUrl || !webhookSecret) return NextResponse.json({ message: "Inquiry delivery is being connected. Please email Paulius@delvor.lt directly." }, { status: 503 });
+  if (!webhookUrl || !webhookSecret) return NextResponse.json({ message: "Inquiry delivery is being connected. Please email paulius@delvor.lt directly." }, { status: 503 });
   let target: URL;
-  try { target = new URL(webhookUrl); } catch { return NextResponse.json({ message: "Inquiry delivery is temporarily unavailable. Please email Paulius@delvor.lt." }, { status: 503 }); }
-  if (target.protocol !== "https:") return NextResponse.json({ message: "Inquiry delivery is temporarily unavailable. Please email Paulius@delvor.lt." }, { status: 503 });
+  try { target = new URL(webhookUrl); } catch { return NextResponse.json({ message: "Inquiry delivery is temporarily unavailable. Please email paulius@delvor.lt." }, { status: 503 }); }
+  if (target.protocol !== "https:") return NextResponse.json({ message: "Inquiry delivery is temporarily unavailable. Please email paulius@delvor.lt." }, { status: 503 });
 
   const requestId = randomUUID();
   const payload = JSON.stringify({ event: "contact_inquiry.created", requestId, receivedAt: new Date().toISOString(), inquiry: parsed.data });
@@ -50,7 +50,7 @@ export async function POST(request: Request) {
   const signature = createHmac("sha256", webhookSecret).update(timestamp + "." + payload).digest("hex");
   try {
     const response = await fetch(target, { method: "POST", headers: { "content-type": "application/json", "x-delvor-timestamp": timestamp, "x-delvor-signature": "sha256=" + signature, "x-delvor-request-id": requestId }, body: payload, signal: AbortSignal.timeout(8000), cache: "no-store" });
-    if (!response.ok) return NextResponse.json({ message: "Inquiry delivery failed. Please email Paulius@delvor.lt." }, { status: 502 });
+    if (!response.ok) return NextResponse.json({ message: "Inquiry delivery failed. Please email paulius@delvor.lt." }, { status: 502 });
     return NextResponse.json({ message: "Your inquiry was received. Delvor will reply by email." }, { status: 202 });
-  } catch { return NextResponse.json({ message: "Inquiry delivery failed. Please email Paulius@delvor.lt." }, { status: 502 }); }
+  } catch { return NextResponse.json({ message: "Inquiry delivery failed. Please email paulius@delvor.lt." }, { status: 502 }); }
 }

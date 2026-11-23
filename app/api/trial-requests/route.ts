@@ -9,11 +9,15 @@ export const dynamic = "force-dynamic";
 const requestSchema = z.object({
   email: z.string().trim().email().max(254),
   businessName: z.string().trim().min(2).max(160),
-  profileUrl: z.string().trim().url().max(2048),
+  profileUrl: z.string().trim().url().max(2048).optional(),
   city: z.string().trim().min(2).max(80),
-  country: z.string().trim().min(2).max(80),
+  country: z.string().trim().min(2).max(80).optional(),
   contactName: z.string().trim().min(2).max(120),
-  phone: z.string().trim().transform((value) => value.replace(/[\s().-]/g, "")).refine((value) => /^\+[1-9][0-9]{7,14}$/.test(value), "A valid international phone number is required."),
+  phone: z.string().trim().max(24)
+    .transform((value) => value.replace(/[\s().-]/g, ""))
+    .refine((value) => value === "" || /^\+[1-9][0-9]{7,14}$/.test(value))
+    .transform((value) => value || undefined)
+    .optional(),
   consent: z.literal("yes"),
   companyWebsite: z.string().max(0).optional(),
 });
@@ -45,12 +49,17 @@ export async function POST(request: Request) {
   let input: unknown;
   try { input = await request.json(); } catch { return NextResponse.json({ message: "The request body could not be read." }, { status: 400 }); }
   const parsed = requestSchema.safeParse(input);
-  if (!parsed.success) return NextResponse.json({ message: "Please check the required fields and try again." }, { status: 400 });
+  if (!parsed.success) {
+    const invalidPhone = parsed.error.issues.some((issue) => issue.path[0] === "phone");
+    return NextResponse.json({
+      message: invalidPhone ? "Enter your phone number with a country code, such as +371, or leave it blank." : "Please check your business and contact details and try again.",
+    }, { status: 400 });
+  }
   if (parsed.data.companyWebsite) return NextResponse.json({ message: "The request could not be accepted." }, { status: 400 });
 
   const webhookUrl = process.env.N8N_WEBHOOK_URL;
   const webhookSecret = process.env.N8N_WEBHOOK_SECRET;
-  if (!webhookUrl || !webhookSecret) return NextResponse.json({ message: "Trial requests are currently in request-only mode and the secure intake connection is not enabled. Please email Paulius@delvor.lt so the team can review your request." }, { status: 503 });
+  if (!webhookUrl || !webhookSecret) return NextResponse.json({ message: "Online requests are temporarily unavailable. You can start your request by email." }, { status: 503 });
   let parsedWebhook: URL;
   try { parsedWebhook = new URL(webhookUrl); } catch { return NextResponse.json({ message: "The trial request service is temporarily unavailable." }, { status: 503 }); }
   if (parsedWebhook.protocol !== "https:") return NextResponse.json({ message: "The trial request service is temporarily unavailable." }, { status: 503 });
@@ -61,9 +70,9 @@ export async function POST(request: Request) {
   const signed = signature(payload, timestamp, webhookSecret);
   try {
     const response = await fetch(parsedWebhook, { method: "POST", headers: { "content-type": "application/json", "x-delvor-timestamp": timestamp, "x-delvor-signature": "sha256=" + signed, "x-delvor-request-id": requestId }, body: payload, signal: AbortSignal.timeout(8000), cache: "no-store" });
-    if (!response.ok) return NextResponse.json({ message: "The request could not be sent for review. Please email Paulius@delvor.lt." }, { status: 502 });
+    if (!response.ok) return NextResponse.json({ message: "The request could not be sent for review. Please email paulius@delvor.lt." }, { status: 502 });
     return NextResponse.json({ message: "Your request was received for review. Delvor will contact you before any trial activation." }, { status: 202 });
-  } catch { return NextResponse.json({ message: "The request could not be sent for review. Please email Paulius@delvor.lt." }, { status: 502 }); }
+  } catch { return NextResponse.json({ message: "The request could not be sent for review. Please email paulius@delvor.lt." }, { status: 502 }); }
 }
 
 export function GET() {

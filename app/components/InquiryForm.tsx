@@ -20,7 +20,7 @@ export default function InquiryForm() {
       form.reset();
     } catch (error) {
       setStatus("error");
-      setMessage(error instanceof Error ? error.message : "The inquiry could not be sent. Email Paulius@delvor.lt directly.");
+      setMessage(error instanceof Error ? error.message : "The inquiry could not be sent. Email paulius@delvor.lt directly.");
     }
   }
 
